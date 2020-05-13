@@ -24,11 +24,12 @@ repositories {
 }
 
 dependencies {
+    jooqRuntime 'postgresql:postgresql:9.1-901.jdbc4'
     implementation 'org.springframework.boot:spring-boot-starter-web-services'
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-jooq', version: '2.2.7.RELEASE'
-    runtimeOnly 'com.h2database:h2'
+    runtimeOnly 'org.postgresql:postgresql'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
@@ -43,18 +44,16 @@ test {
 jooq {
     csmart(sourceSets.main) {
         jdbc {
-            driver = 'org.h2.Driver'
-            url = 'jdbc:h2:mem:testdb'
-            user = 'alexthered'
-            password = 'test'
+            driver = 'org.postgresql.Driver'
+            url = 'jdbc:postgresql://localhost:5432/test_db'
+            user = 'postgres'
+            password = 'postgres'
             schema = 'public'
         }
         generator {
-            name = 'org.jooq.util.DefaultGenerator'
-            strategy {
-                name = 'org.jooq.util.DefaultGeneratorStrategy'
-            }
+            name = 'org.jooq.codegen.DefaultGenerator'
             database {
+                name = 'org.jooq.meta.postgres.PostgresDatabase'
                 inputSchema = 'public'
             }
             generate {
@@ -65,8 +64,8 @@ jooq {
                 fluentSetters = true
             }
             target {
-                packageName = 'me.alexthered.jooqdemo'
-                directory = 'src/main/java/model'
+                packageName = 'me.alexthered.jooqdemo.model'
+                directory = 'src/main/java'
             }
         }
     }

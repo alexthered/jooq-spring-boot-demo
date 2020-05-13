@@ -1,0 +1,8 @@
+version: '3.4'
+services:
+  postgres:
+    build:
+      context: ./db
+    ports:
+      - 5432:5432
+
