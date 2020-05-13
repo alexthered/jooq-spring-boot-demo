@@ -64,7 +64,7 @@ jooq {
                 fluentSetters = true
             }
             target {
-                packageName = 'me.alexthered.jooqdemo.model'
+                packageName = 'me.alexthered.jooqdemo.generated'
                 directory = 'src/main/java'
             }
         }
