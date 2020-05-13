@@ -1,8 +1,4 @@
-#Enable h2 console
 spring:
-  h2:
-    console:
-      enabled: true
   datasource:
     url: jdbc:postgresql://localhost:5432/test_db
     driver-class-name: org.postgresql.Driver
